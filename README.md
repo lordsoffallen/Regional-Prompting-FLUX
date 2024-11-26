@@ -9,7 +9,7 @@
 
 </div>
 
-Training-free Regional Prompting for Diffusion Transformers(Regional-Prompting-FLUX) enables Diffusion Transformers (i.e., FLUX) with find-grained compositional text-to-image generation capability in a training-free manner. Empirically, we show that our method is highly effective and compatible with LoRA and ControlNet.
+Training-free Regional Prompting for Diffusion Transformers(Regional-Prompting-FLUX) enables Diffusion Transformers (i.e., FLUX) with find-grained compositional text-to-image generation capability in a training-free manner. Empirically, we show that our method is highly effective and compatible with LoRA, ControlNet and multi-person PULID.
 
 <!-- <img src='assets/pipe.png'> -->
 
@@ -24,10 +24,93 @@ We inference at speed **much faster** than the [RPG-based](https://github.com/Ya
 </p>
 
 ## Release
+- [2024/11/26] 🔥 We support multi-person identity-preserving with PULID, an zero-shot identity-preserving plugin, now you can generate multi-person identity-preserved images at your custom layout!
 - [2024/11/05] 🔥 We release the code, feel free to try it out!
 - [2024/11/05] 🔥 We release the [technical report](https://arxiv.org/abs/2411.02395)!
 
 ## Demos
+
+### [NEW!] Multi-Person Identity-Preserving Regional Prompting with PULID
+> Note: Follow the installation guide in [PULID](https://github.com/ToTheBeginning/PuLID) to install the necessary dependencies, also follow the instruction in [Installation](#installation) before running the following demos. 
+
+
+<table align="center">
+  <tr>
+    <th>Regional Masks</th>
+    <th>Configuration</th>
+    <th>Generated Result</th>
+  </tr>
+  <tr>
+    <td width="10%">
+      <img src="./assets/demo_pulid_0_layout.jpg" width="100%">
+      <br>
+      <small><i>Red: Person region (xyxy: [64, 320, 448, 1280])</i></small>
+      <img src="./assets/lecun.jpeg" width="100%">
+    </td>
+    <td width="40%">
+      <b>Base Prompt:</b><br>
+      "In a classroom during the afternoon, a man is practicing guitar by himself, with sunlight beautifully illuminating the room"
+      <br><br>
+      <b>Background Prompt:</b><br>
+      "empty classroom"
+      <br><br>
+      <b>Regional Prompts:</b>
+      <ul>
+        <li><b>Region 0:</b> "A man in a blue shirt and jeans, playing guitar"</li>
+      </ul>
+      <b>Settings:</b>
+      <ul>
+        <li>Image Size: 1280x1280</li>
+        <li>Seed: 124</li>
+        <li>Mask Inject Steps: 10</li>
+        <li>Double Inject Interval: 1</li>
+        <li>Single Inject Interval: 1</li>
+        <li>Base Ratio: 0.2</li>
+        <li>PULID Scale: 1.0</li>
+      </ul>
+    </td>
+    <td width="50%">
+      <img src="assets/demo_pulid_0.jpg" width="100%">
+    </td>
+  </tr>
+  <tr>
+    <td width="10%">
+      <img src="assets/demo_pulid_1_layout.jpg" width="100%">
+      <br>
+      <small><i>Red: Person 1 region (xyxy: [64, 128, 320, 1280])<br>Green: Person 2 region (xyxy: [960, 128, 1216, 1280])</i></small>
+      <img src="./assets/trump.jpg" width="100%"> <img src="./assets/musk.jpg" width="100%">
+    </td>
+    <td width="40%">
+      <b>Base Prompt:</b><br>
+      "In an elegant dining room, two men are having dinner at opposite ends of a long formal table, with warm lighting creating an atmospheric ambiance"
+      <br><br>
+      <b>Background Prompt:</b><br>
+      "a luxurious dining room with crystal chandeliers, ornate wallpaper, rich wooden paneling, and dramatic lighting"
+      <br><br>
+      <b>Regional Prompts:</b>
+      <ul>
+        <li><b>Region 0:</b> "A man in a business suit sitting at one end of the long dining table, with a plate of food and wine glass in front of him"</li>
+        <li><b>Region 1:</b> "A man in a leather jacket sitting at the far end of the long dining table, with a plate of food and wine glass in front of him"</li>
+      </ul>
+      <b>Settings:</b>
+      <ul>
+        <li>Image Size: 1280x1280</li>
+        <li>Seed: 124</li>
+        <li>Mask Inject Steps: 10</li>
+        <li>Double Inject Interval: 1</li>
+        <li>Single Inject Interval: 1</li>
+        <li>Base Ratio: 0.1</li>
+        <li>PULID Scale: 1.0, 1.0</li>
+      </ul>
+    </td>
+    <td width="50%">
+      <img src="assets/demo_pulid_1.jpg" width="100%">
+    </td>
+  </tr>
+</table>
+
+
+
 
 ### Custom Regional Control
 
@@ -357,10 +440,15 @@ git clone https://github.com/antonioo-c/Regional-Prompting-FLUX.git
 # replace file in diffusers
 cd Regional-Prompting-FLUX
 cp transformer_flux.py ../diffusers/src/diffusers/models/transformers/transformer_flux.py
+
+# additionally, if you want use PULID with Regional-Prompting-FLUX, follow the installation guide in [PULID](https://github.com/ToTheBeginning/PuLID) to install the necessary dependencies. Then,
+# cd .. && git clone https://github.com/ToTheBeginning/PuLID.git
+# cd Regional-Prompting-FLUX
+# cp transformer_flux_pulid.py ../diffusers/src/diffusers/models/transformers/transformer_flux.py
 ```
 
 ## Quick Start
-See detailed example (including LoRAs and ControlNets) in [infer_flux_regional.py](infer_flux_regional.py). Below is a quick start example.
+See detailed example (including LoRAs, ControlNets, and PULID) in [infer_flux_regional.py](infer_flux_regional.py) and [infer_flux_regional_pulid.py](infer_flux_regional_pulid.py). Below is a quick start example.
 
 ```python
 import torch
