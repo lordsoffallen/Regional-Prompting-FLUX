@@ -67,7 +67,7 @@ if __name__ == "__main__":
     # single_inject_blocks_interval = 2
     # base_ratio = 0.1
 
-    # base_prompt = "In an elegant dining room, only two men are having dinner at opposite ends of a long formal table, with warm lighting creating an atmospheric ambiance"
+    # base_prompt = "In an elegant dining room, two men are having dinner at opposite ends of a long formal table, with warm lighting creating an atmospheric ambiance"
     # background_prompt = "a dining room"
     # regional_prompt_mask_pairs = {
     #     "0": {

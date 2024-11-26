@@ -82,7 +82,7 @@ We inference at speed **much faster** than the [RPG-based](https://github.com/Ya
     </td>
     <td width="40%">
       <b>Base Prompt:</b><br>
-      "In an elegant dining room, only two men are having dinner at opposite ends of a long formal table, with warm lighting creating an atmospheric ambiance"
+      "In an elegant dining room, two men are having dinner at opposite ends of a long formal table, with warm lighting creating an atmospheric ambiance"
       <br><br>
       <b>Background Prompt:</b><br>
       "a dining room"
