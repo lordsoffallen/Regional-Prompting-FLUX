@@ -404,7 +404,7 @@ class RegionalFluxPipeline_PULID(FluxPipeline):
         self.debug_img_list = []
     
     def load_pretrain(self, pretrain_path=None):
-        # hf_hub_download('guozinan/PuLID', 'pulid_flux_v0.9.1.safetensors', local_dir='models')
+        hf_hub_download('guozinan/PuLID', 'pulid_flux_v0.9.1.safetensors', local_dir='models')
         ckpt_path = 'models/pulid_flux_v0.9.1.safetensors'
         if pretrain_path is not None:
             ckpt_path = pretrain_path

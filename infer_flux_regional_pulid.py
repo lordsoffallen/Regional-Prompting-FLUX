@@ -17,10 +17,11 @@ if __name__ == "__main__":
 
     # load pulid
     pipeline.load_pulid_models()
-    pipeline.load_pretrain(pretrain_path='/root/users/chenantong/codes/PuLID/models/pulid_flux_v0.9.1.safetensors')
+    pipeline.load_pretrain()
 
-    ## generation settings
-    
+    # single-person example
+
+    # generation settings
     image_width = 1280
     image_height = 1280
     num_samples = 1
@@ -28,11 +29,13 @@ if __name__ == "__main__":
     guidance_scale = 3.5
     seed = 124
 
+    # regional prompting settings
     mask_inject_steps = 10
     double_inject_blocks_interval = 1
     single_inject_blocks_interval = 1
-    base_ratio = 0.1
+    base_ratio = 0.2
 
+    # regional prompting settings
     base_prompt = "In a classroom during the afternoon, a man is practicing guitar by himself, with sunlight beautifully illuminating the room"
     background_prompt = "empty classroom"
     regional_prompt_mask_pairs = {
@@ -41,21 +44,44 @@ if __name__ == "__main__":
             "mask": [64, 320, 448, 1280]
         }
     }
-    base_prompt = "In an elegant dining room, two men are having dinner at opposite ends of a long formal table, with warm lighting creating an atmospheric ambiance"
-    background_prompt = "a luxurious dining room with crystal chandeliers, ornate wallpaper, rich wooden paneling, and dramatic lighting"
-    regional_prompt_mask_pairs = {
-        "0": {
-            "description": "A man in a business suit sitting at one end of the long dining table, with a plate of food and wine glass in front of him",
-            "mask": [64, 128, 320, 1280]
-        },
-        "1": {
-            "description": "A man in a leather jacket sitting at the far end of the long dining table, with a plate of food and wine glass in front of him",
-            "mask": [960, 128, 1216, 1280]
-        }
-    }     
+
     # pulid input 
-    id_image_paths = ["./assets/trump.jpg", "./assets/musk.jpg"]
-    id_weights = [1.0, 1.0] # scale for pulid embedding injection
+    id_image_paths = ["./assets/lecun.jpeg"]
+    id_weights = [1.0] # scale for pulid embedding injection
+
+
+    # multi-person example
+
+    # generation settings
+    # image_width = 1280
+    # image_height = 968
+    # num_samples = 1
+    # num_inference_steps = 24
+    # guidance_scale = 3.5
+    # seed = 124
+
+    # regional prompting settings
+
+    # mask_inject_steps = 8
+    # double_inject_blocks_interval = 1
+    # single_inject_blocks_interval = 2
+    # base_ratio = 0.1
+
+    # base_prompt = "In an elegant dining room, only two men are having dinner at opposite ends of a long formal table, with warm lighting creating an atmospheric ambiance"
+    # background_prompt = "a dining room"
+    # regional_prompt_mask_pairs = {
+    #     "0": {
+    #         "description": "A man in a suit sitting at the table, with a plate of food and wine glass in front of him",
+    #         "mask": [64, 128, 320, 968]
+    #     },
+    #     "1": {
+    #         "description": "A man in a suit sitting at the table, with a plate of food and wine glass in front of him",
+    #         "mask": [960, 128, 1216, 968]
+    #     }
+    # }
+    # # pulid input 
+    # id_image_paths = ["./assets/trump.jpg", "./assets/musk.jpg"]
+    # id_weights = [0.8, 0.8] # scale for pulid embedding injection
 
     # prepare regional prompts and masks
     # ensure image width and height are divisible by the vae scale factor

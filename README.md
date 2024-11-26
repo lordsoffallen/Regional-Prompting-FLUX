@@ -82,25 +82,25 @@ We inference at speed **much faster** than the [RPG-based](https://github.com/Ya
     </td>
     <td width="40%">
       <b>Base Prompt:</b><br>
-      "In an elegant dining room, two men are having dinner at opposite ends of a long formal table, with warm lighting creating an atmospheric ambiance"
+      "In an elegant dining room, only two men are having dinner at opposite ends of a long formal table, with warm lighting creating an atmospheric ambiance"
       <br><br>
       <b>Background Prompt:</b><br>
-      "a luxurious dining room with crystal chandeliers, ornate wallpaper, rich wooden paneling, and dramatic lighting"
+      "a dining room"
       <br><br>
       <b>Regional Prompts:</b>
       <ul>
-        <li><b>Region 0:</b> "A man in a business suit sitting at one end of the long dining table, with a plate of food and wine glass in front of him"</li>
-        <li><b>Region 1:</b> "A man in a leather jacket sitting at the far end of the long dining table, with a plate of food and wine glass in front of him"</li>
+        <li><b>Region 0:</b> "A man in a suit sitting at the table, with a plate of food and wine glass in front of him"</li>
+        <li><b>Region 1:</b> "A man in a suit sitting at the table, with a plate of food and wine glass in front of him"</li>
       </ul>
       <b>Settings:</b>
       <ul>
-        <li>Image Size: 1280x1280</li>
+        <li>Image Size: 1280x968</li>
         <li>Seed: 124</li>
-        <li>Mask Inject Steps: 10</li>
+        <li>Mask Inject Steps: 8</li>
         <li>Double Inject Interval: 1</li>
-        <li>Single Inject Interval: 1</li>
+        <li>Single Inject Interval: 2</li>
         <li>Base Ratio: 0.1</li>
-        <li>PULID Scale: 1.0, 1.0</li>
+        <li>PULID Scale: 0.8, 0.8</li>
       </ul>
     </td>
     <td width="50%">
