@@ -28,6 +28,9 @@ We inference at speed **much faster** than the [RPG-based](https://github.com/Ya
 - [2024/11/05] 🔥 We release the code, feel free to try it out!
 - [2024/11/05] 🔥 We release the [technical report](https://arxiv.org/abs/2411.02395)!
 
+## Community Resources
+- [ComfyUI-Fluxtapoz](https://github.com/logtd/ComfyUI-Fluxtapoz?tab=readme-ov-file#regional-prompting): ComfyUI support for Regional-Prompting-FLUX.
+
 ## Demos
 
 ### [NEW!] Multi-Person Identity-Preserving Regional Prompting with PULID
