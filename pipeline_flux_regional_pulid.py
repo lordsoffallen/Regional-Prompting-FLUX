@@ -281,11 +281,7 @@ class RegionalFluxAttnProcessor2_0:
 
         # move regional mask to device
         if base_ratio is not None and 'regional_attention_mask' in additional_kwargs:
-            if self.regional_mask is not None:
-                regional_mask = self.regional_mask.to(hidden_states.device)
-            else:
-                self.regional_mask = additional_kwargs['regional_attention_mask']
-                regional_mask = self.regional_mask.to(hidden_states.device)
+            regional_mask = additional_kwargs['regional_attention_mask'].to(hidden_states.device)
         else:
             regional_mask = None
 
