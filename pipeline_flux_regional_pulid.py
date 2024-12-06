@@ -57,7 +57,7 @@ import sys
 
 sys.path.append('../PuLID')
 
-from pulid.encoders_flux import IDFormer, PerceiverAttentionCA
+from pulid.encoders_transformer import IDFormer, PerceiverAttentionCA
 from pulid.utils import img2tensor, tensor2img, resize_numpy_image_long
 from eva_clip import create_model_and_transforms
 from eva_clip.constants import OPENAI_DATASET_MEAN, OPENAI_DATASET_STD
