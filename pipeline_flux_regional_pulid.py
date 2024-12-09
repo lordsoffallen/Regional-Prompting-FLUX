@@ -524,6 +524,7 @@ class RegionalFluxPipeline_PULID(FluxPipeline):
             prompt_embeds: Optional[torch.FloatTensor] = None,
             pooled_prompt_embeds: Optional[torch.FloatTensor] = None,
             joint_attention_kwargs: Optional[Dict[str, Any]] = None,
+            update_weights: Callable = None,
             output_type: Optional[str] = "pil",
             return_dict: bool = True,
     ):
@@ -703,7 +704,12 @@ class RegionalFluxPipeline_PULID(FluxPipeline):
                 
                 # broadcast to batch dimension in a way that's compatible with ONNX/Core ML
                 timestep = t.expand(latents.shape[0]).to(latents.dtype)
-                
+
+                # Dynamic update for id_weights
+                id_weights = joint_attention_kwargs.get('id_weights')
+                if (id_weights is not None) and (update_weights is not None):
+                    id_weights = update_weights(id_weights, step=i)
+
                 noise_pred = self.transformer(
                     hidden_states=latents,
                     timestep=timestep / 1000,
@@ -719,7 +725,7 @@ class RegionalFluxPipeline_PULID(FluxPipeline):
                         'double_inject_blocks_interval': joint_attention_kwargs['double_inject_blocks_interval'] if 'double_inject_blocks_interval' in joint_attention_kwargs else len(self.transformer.transformer_blocks),
                         'regional_attention_mask': regional_attention_mask if base_ratio is not None else None,
                         'id_embeddings': id_embeddings if i >= pulid_start_step else None,
-                        'id_weights': joint_attention_kwargs['id_weights'] if 'id_weights' in joint_attention_kwargs else None,
+                        'id_weights': id_weights,
                         'id_masks': id_masks,
                     },
                     return_dict=False,
